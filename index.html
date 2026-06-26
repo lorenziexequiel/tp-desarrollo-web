@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP Desarrollo Web - Inicio</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        nav { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        a { text-decoration: none; color: #0056b3; font-weight: bold; }
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        nav { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        a { text-decoration: none; color: #0056b3; font-weight: bold; font-size: 1.1em; }
         a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <h1>Trabajo Práctico: Desarrollo Web</h1>
-    <p>Bienvenido. Seleccioná un ejercicio para ver la resolución:</p>
-
-    <nav>
-        <a href="flexbox.html">Ejercicio 1: Maquetación con Flexbox</a>
-        <a href="personas.html">Ejercicio 2: Formulario y Tabla (Vanilla JS)</a>
-        <a href="react.html">Ejercicio 3: Formulario y Tabla (React)</a>
-    </nav>
+    <header>
+        <h1>Trabajo Práctico: Desarrollo Web</h1>
+    </header>
+    
+    <main>
+        <p>Bienvenido. Seleccioná un ejercicio para ver la resolución:</p>
+        <nav aria-label="Navegación principal de ejercicios">
+            <a href="flexbox.html">Ejercicio 1: Maquetación con Flexbox</a>
+            <a href="personas.html">Ejercicio 2: Formulario y Tabla (Vanilla JS)</a>
+            <a href="react.html">Ejercicio 3: Formulario y Tabla (React)</a>
+        </nav>
+    </main>
 </body>
 </html>
