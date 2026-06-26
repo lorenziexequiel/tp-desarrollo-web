@@ -6,43 +6,12 @@
     <title>Ejercicio 1 - Flexbox</title>
     <style>
         body { font-family: sans-serif; padding: 20px; }
-        
-        /* Flexbox para el encabezado */
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 20px; 
-        }
-        
-        /* Flexbox para los botones */
-        .controles { 
-            display: flex; 
-            gap: 10px; 
-            margin-bottom: 20px; 
-        }
-
-        /* Flexbox principal para la grilla de tarjetas */
-        #contenedor-tarjetas {
-            display: flex;
-            flex-wrap: wrap; /* Permite que las tarjetas bajen si no entran */
-            gap: 20px;
-            justify-content: flex-start;
-        }
-
-        /* Diseño de cada tarjeta individual */
-        .tarjeta {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            width: 250px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-        }
-        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .controles { display: flex; gap: 10px; margin-bottom: 20px; }
+        #contenedor-tarjetas { display: flex; flex-wrap: wrap; gap: 20px; }
+        .tarjeta { background-color: #e3f2fd; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; width: 250px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
         .tarjeta h3 { margin-top: 0; color: #0d6efd; }
         a { text-decoration: none; color: #333; font-weight: bold; }
-        a:hover { text-decoration: underline; }
         button { padding: 8px 12px; cursor: pointer; border-radius: 4px; border: 1px solid #ccc; }
     </style>
 </head>
@@ -63,7 +32,6 @@
     <div id="contenedor-tarjetas"></div>
 
     <script>
-        // 1. Nuestro arreglo de 6 elementos
         const herramientas = [
             { nombre: "Power Apps", desc: "Desarrollo ágil de aplicaciones empresariales." },
             { nombre: "AI Builder", desc: "Modelos de inteligencia artificial integrados." },
@@ -75,25 +43,36 @@
 
         const contenedor = document.getElementById('contenedor-tarjetas');
 
-        // 2. Función para renderizar (dibujar) las tarjetas
         function mostrarTarjetas(arreglo) {
-            contenedor.innerHTML = ''; // Limpiamos el contenedor antes de dibujar
-            
+            contenedor.innerHTML = ''; 
             arreglo.forEach(item => {
-                // Creamos el div de la tarjeta
                 const div = document.createElement('div');
                 div.className = 'tarjeta';
-                
-                // Le metemos el contenido HTML adentro
-                div.innerHTML = `
-                    <h3>${item.nombre}</h3>
-                    <p>${item.desc}</p>
-                `;
-                
-                // Lo agregamos al contenedor principal
+                div.innerHTML = `<h3>${item.nombre}</h3><p>${item.desc}</p>`;
                 contenedor.appendChild(div);
             });
         }
 
-        // 3. Mostramos las tarjetas al cargar la página por primera vez
-        mostrarTar
+        // Función con estado de carga simulado
+        function cargarDatosConDelay() {
+            contenedor.innerHTML = '<p>Cargando datos...</p>';
+            setTimeout(() => {
+                mostrarTarjetas(herramientas);
+            }, 500); // Retraso de medio segundo
+        }
+
+        // Eventos
+        document.getElementById('btn-ordenar').addEventListener('click', () => {
+            const copiaOrdenada = [...herramientas].sort((a, b) => a.nombre.localeCompare(b.nombre));
+            mostrarTarjetas(copiaOrdenada);
+        });
+
+        document.getElementById('btn-original').addEventListener('click', () => {
+            mostrarTarjetas(herramientas);
+        });
+
+        // Inicialización
+        cargarDatosConDelay();
+    </script>
+</body>
+</html>
