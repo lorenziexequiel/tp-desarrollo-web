@@ -25,13 +25,14 @@
         function App() {
             const [personas, setPersonas] = React.useState([]);
             const [form, setForm] = React.useState({ nombre: '', apellido: '', edad: '', altura: '', peso: '' });
+            const nextId = React.useRef(1);
 
             const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
             const agregarPersona = (e) => {
                 e.preventDefault();
                 const imc = (form.peso / (form.altura * form.altura)).toFixed(2);
-                setPersonas([...personas, { ...form, imc, id: Date.now() }]);
+                setPersonas([...personas, { ...form, imc, id: nextId.current++ }]);
                 setForm({ nombre: '', apellido: '', edad: '', altura: '', peso: '' });
             };
 
@@ -45,7 +46,7 @@
                         <input name="edad" type="number" placeholder="Edad" value={form.edad} onChange={handleChange} required />
                         <input name="altura" type="number" step="0.01" placeholder="Altura (m)" value={form.altura} onChange={handleChange} required />
                         <input name="peso" type="number" step="0.1" placeholder="Peso (kg)" value={form.peso} onChange={handleChange} required />
-                        <button type="submit">Agregar</button>
+                        <button type="submit">Registrar</button>
                     </form>
                     <table>
                         <thead><tr><th>Nombre</th><th>Apellido</th><th>Edad</th><th>Altura</th><th>Peso</th><th>IMC</th><th>Acción</th></tr></thead>
