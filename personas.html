@@ -48,20 +48,25 @@
         const form = document.getElementById('form-persona');
         const tbody = document.querySelector('#tabla-personas tbody');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que se recargue la página
+        // Función independiente para calcular el IMC
+        // Esto separa la lógica de negocio de la manipulación del DOM
+        function calcularIMC(peso, altura) {
+            if (altura <= 0) return 0;
+            return (peso / (altura * altura)).toFixed(2);
+        }
 
-            // Capturamos los valores
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
             const nombre = document.getElementById('nombre').value;
             const apellido = document.getElementById('apellido').value;
             const edad = document.getElementById('edad').value;
             const altura = parseFloat(document.getElementById('altura').value);
             const peso = parseFloat(document.getElementById('peso').value);
 
-            // Calculamos IMC
-            const imc = (peso / (altura * altura)).toFixed(2);
+            // Usamos la función refactorizada
+            const imc = calcularIMC(peso, altura);
 
-            // Creamos la fila
             const fila = document.createElement('tr');
             fila.innerHTML = `
                 <td>${nombre}</td>
@@ -74,7 +79,7 @@
             `;
 
             tbody.appendChild(fila);
-            form.reset(); // Limpia el formulario
+            form.reset();
         });
     </script>
 </body>
