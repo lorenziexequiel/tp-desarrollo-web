@@ -48,8 +48,6 @@
         const form = document.getElementById('form-persona');
         const tbody = document.querySelector('#tabla-personas tbody');
 
-        // Función independiente para calcular el IMC
-        // Esto separa la lógica de negocio de la manipulación del DOM
         function calcularIMC(peso, altura) {
             if (altura <= 0) return 0;
             return (peso / (altura * altura)).toFixed(2);
@@ -60,11 +58,15 @@
 
             const nombre = document.getElementById('nombre').value;
             const apellido = document.getElementById('apellido').value;
-            const edad = document.getElementById('edad').value;
+            const edad = parseInt(document.getElementById('edad').value);
             const altura = parseFloat(document.getElementById('altura').value);
             const peso = parseFloat(document.getElementById('peso').value);
 
-            // Usamos la función refactorizada
+            if (edad < 0 || altura < 0.3 || altura > 2.5 || peso < 0) {
+                alert("Revisá los valores, hay algo mal cargado.");
+                return;
+            }
+
             const imc = calcularIMC(peso, altura);
 
             const fila = document.createElement('tr');
