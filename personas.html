@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 - Gestión de Personas</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        form { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2>Gestión de Personas</h2>
+        <a href="index.html">⬅ Volver al inicio</a>
+    </header>
+
+    <form id="form-persona">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="text" id="apellido" placeholder="Apellido" required>
+        <input type="number" id="edad" placeholder="Edad" required>
+        <input type="number" id="altura" placeholder="Altura (m)" step="0.01" required>
+        <input type="number" id="peso" placeholder="Peso (kg)" step="0.1" required>
+        <button type="submit">Agregar Persona</button>
+    </form>
+
+    <table id="tabla-personas">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>IMC</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById('form-persona');
+        const tbody = document.querySelector('#tabla-personas tbody');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Evita que se recargue la página
+
+            // Capturamos los valores
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('apellido').value;
+            const edad = document.getElementById('edad').value;
+            const altura = parseFloat(document.getElementById('altura').value);
+            const peso = parseFloat(document.getElementById('peso').value);
+
+            // Calculamos IMC
+            const imc = (peso / (altura * altura)).toFixed(2);
+
+            // Creamos la fila
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${nombre}</td>
+                <td>${apellido}</td>
+                <td>${edad}</td>
+                <td>${altura}</td>
+                <td>${peso}</td>
+                <td>${imc}</td>
+                <td><button onclick="this.closest('tr').remove()">Eliminar</button></td>
+            `;
+
+            tbody.appendChild(fila);
+            form.reset(); // Limpia el formulario
+        });
+    </script>
+</body>
+</html>
